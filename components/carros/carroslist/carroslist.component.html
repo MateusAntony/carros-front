@@ -1,0 +1,57 @@
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+
+                    <h3>Listagem de carros</h3>
+
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Ações</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @for (carro of lista; track $index) {
+                          <tr>
+                            <th scope="row">{{carro.id}}</th>
+                            <td>{{carro.nome}}</td>
+                            <td class="direita">
+                                <button type="button" class="btn btn-primary btn-rounded" (click)="edit(carro)"  data-mdb-ripple-init>Editar</button>
+                                <button type="button" class="btn btn-danger btn-rounded" (click)="deleteById(carro)" data-mdb-ripple-init>Deletar</button>
+
+                            </td>
+                          </tr>
+                        }
+                        </tbody>
+                      </table>
+                      <div class="direita">
+                        <button type="button" class="btn btn-primary btn-rounded" (click)="new()"  data-mdb-ripple-init>Novo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #modalCarroDetalhe>
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Cadastro</h5>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="modalRef.close()"
+  ></button>
+</div>
+<div class="modal-body">
+
+<app-carrosdetails [carro] = "carroEdit" (retorno)="retornoDetalhe($event)"></app-carrosdetails>
+
+</div>
+</ng-template>
