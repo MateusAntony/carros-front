@@ -12,6 +12,7 @@
                           <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nome</th>
+                            <th scope="col">Marca</th>
                             <th scope="col">Ações</th>
                           </tr>
                         </thead>
@@ -20,11 +21,17 @@
                           <tr>
                             <th scope="row">{{carro.id}}</th>
                             <td>{{carro.nome}}</td>
+                            @if(carro.marca){
+                            <td>{{carro.marca.nome}}</td>
+                            }@else{
+                                <td class="text-danger">-----</td>
+                            }
                             <td class="direita">
                                 <button type="button" class="btn btn-primary btn-rounded" (click)="edit(carro)"  data-mdb-ripple-init>Editar</button>
                                 <button type="button" class="btn btn-danger btn-rounded" (click)="deleteById(carro)" data-mdb-ripple-init>Deletar</button>
 
                             </td>
+                          
                           </tr>
                         }
                         </tbody>

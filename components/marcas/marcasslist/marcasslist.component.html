@@ -1,1 +1,60 @@
-<p>marcasslist works!</p>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+
+                    <h3>Listagem de Marcas</h3>
+
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Ações</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @for (marca of lista; track $index) {
+                          <tr>
+                            <th scope="row">{{marca.id}}</th>
+                            <td>{{marca.nome}}</td>
+                            <td class="direita">
+                              @if (esconderBotoes ) {
+                                <button type="button" class="btn btn-primary btn-rounded" (click)="selecionar(marca)"  data-mdb-ripple-init>Selecionar</button>
+                              }@else{
+                                <button type="button" class="btn btn-primary btn-rounded" (click)="edit(marca)"  data-mdb-ripple-init>Editar</button>
+                                <button type="button" class="btn btn-danger btn-rounded" (click)="deleteById(marca)" data-mdb-ripple-init>Deletar</button>
+                              }
+                            </td>
+                          </tr>
+                        }
+                        </tbody>
+                      </table>
+                      <div class="direita">
+                        <button type="button" class="btn btn-primary btn-rounded" (click)="new()"  data-mdb-ripple-init>Novo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #modalMarcaDetalhe>
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Cadastro</h5>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="modalRef.close()"
+  ></button>
+</div>
+<div class="modal-body">
+
+<app-marcasdetails [marca] = "marcaEdit" (retorno)="retornoDetalhe($event)"></app-marcasdetails>
+
+</div>
+</ng-template>

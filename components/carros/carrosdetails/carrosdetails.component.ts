@@ -1,24 +1,31 @@
-import { Component, inject, Input, Output,EventEmitter } from '@angular/core';
+import { Component, inject, Input, Output,EventEmitter, TemplateRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Carro } from '../../../models/carro';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2'
 import { CarroService } from '../../../services/carro.service';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { Marca } from '../../../models/marca';
+import { MarcasslistComponent } from '../../marcas/marcasslist/marcasslist.component';
 
 
 @Component({
   selector: 'app-carrosdetails',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,MarcasslistComponent ],
   templateUrl: './carrosdetails.component.html',
   styleUrl: './carrosdetails.component.scss'
 })
 export class CarrosdetailsComponent {
 
-  @Input("carro") carro: Carro = new Carro(0,"");
+  @Input("carro") carro: Carro = new Carro(0,'');
   @Output("retorno") retorno = new EventEmitter<any>();
   router = inject(ActivatedRoute);
   router2= inject(Router);
+
+  modalService = inject(MdbModalService);
+  @ViewChild("modalMarcas") modalMarcas!: TemplateRef<any>;
+  modalRef!: MdbModalRef<any>;
 
   carroService = inject(CarroService);
   
@@ -72,6 +79,7 @@ export class CarrosdetailsComponent {
           confirmButtonText: 'Ok'
         })
       }
+      
       });
 
 
@@ -89,6 +97,9 @@ export class CarrosdetailsComponent {
 
       },
       error: erro => {
+
+        console.error("[ERRO] - Detalhes do erro:", erro);
+        console.error("[ERRO] - Error completo:", JSON.stringify(erro));
         Swal.fire({
           title: "Ocorreu um erro",
           icon: 'error',
@@ -101,6 +112,17 @@ export class CarrosdetailsComponent {
 
 
   }
-  
+
+  buscarMarca(){
+
+    this.modalRef = this.modalService.open(this.modalMarcas, {modalClass: 'modal-lg'});
+
+  }
+
+  retornoMarca(marca: Marca){
+    this.carro.marca = marca;
+    this.modalRef.close();
+  }
 
 }
+

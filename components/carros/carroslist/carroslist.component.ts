@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { CarrosdetailsComponent } from "../carrosdetails/carrosdetails.component";
 import { CarroService } from '../../../services/carro.service';
+import { Marca } from '../../../models/marca';
 
 @Component({
   selector: 'app-carroslist',
